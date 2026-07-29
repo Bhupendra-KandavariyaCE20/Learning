@@ -1,0 +1,17 @@
+li = [1,2,3]
+
+for i in li:
+    print(i, sep="->")
+
+
+# Now implement iterator
+iterator_cursor = iter(li)
+
+while True:
+    try:
+        item = next(iterator_cursor)
+        print(item)
+    except StopIteration:
+        break
+
+    
