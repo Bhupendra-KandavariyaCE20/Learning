@@ -6,3 +6,6 @@ def count_to_3():
 
 counter  = count_to_3()
 print(next(counter))
+
+print(next(counter))
+
