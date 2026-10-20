@@ -1,2 +1,0 @@
-Line 1: Writing data using @contextmanager!
-Line 2: Python context managers are awesome.
