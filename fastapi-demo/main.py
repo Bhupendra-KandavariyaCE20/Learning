@@ -68,6 +68,11 @@ def add(a: int, b: int):
     return {"total": a + b}
 
 
+@app.get("/health")
+def health_check():
+    return {"status": "ok"}
+
+
 # This endpoint now requires a Google login.
 @app.get("/profile", response_model=User)
 def profile(user: CurrentUser):

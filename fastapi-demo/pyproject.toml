@@ -8,5 +8,6 @@ dependencies = [
     "authlib>=1.9.1",
     "fastapi[standard]>=0.162.0",
     "itsdangerous>=2.2.0",
+    "pytest>=9.1.1",
     "python-dotenv>=1.2.4",
 ]
