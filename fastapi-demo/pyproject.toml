@@ -10,4 +10,5 @@ dependencies = [
     "itsdangerous>=2.2.0",
     "pytest>=9.1.1",
     "python-dotenv>=1.2.4",
+    "ruff>=0.17.2",
 ]
