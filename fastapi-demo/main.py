@@ -1,7 +1,7 @@
 # main.py
 
 from fastapi import FastAPI
-from routers import users, products
+from routers import users, products, sync_async
 
 # Create the main FastAPI application.
 app = FastAPI(title="My First FastAPI")
@@ -11,6 +11,7 @@ app = FastAPI(title="My First FastAPI")
 # FastAPI combines each router's prefix with its endpoint paths.
 app.include_router(users.router)
 app.include_router(products.router)
+app.include_router(sync_async.router)
 
 
 # GET /

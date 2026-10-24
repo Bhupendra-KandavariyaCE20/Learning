@@ -1,4 +1,4 @@
-from fastapi import APIRouter, status
+from fastapi import APIRouter, status, HTTPException
 from pydantic import BaseModel, Field
 
 # APIRouter groups related endpoints together.
@@ -47,6 +47,17 @@ def create_user_v2(user_id: int):
         "filtered": "This field will not appear in the response",
     }
 
-@router.get("/user_v3/status", status_code=status.HTTP_201_CREATED)
+
+@router.get("/status", status_code=status.HTTP_201_CREATED)
 def user_status():
     return {"status": "user created"}
+
+
+@router.get("/http_exception/{user_id}")
+def create_user_v3(user_id: int):
+    if user_id < 1:
+        return HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="User ID must be greater than 0",
+        )
+    return {"user id": user_id}
