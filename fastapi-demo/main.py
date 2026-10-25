@@ -6,11 +6,28 @@ from fastapi import Depends, FastAPI, HTTPException, Request
 from pydantic import BaseModel
 from starlette.middleware.sessions import SessionMiddleware
 
-from routers import users, products, sync_async, auth, database_test
+from routers import users, products, sync_async, auth, database_test, items
+from contextlib import asynccontextmanager
+
+from database import Base, engine
+from models import Item
 
 load_dotenv()
 
-app = FastAPI(title="My First FastAPI")
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Create missing tables for this learning project.
+    async with engine.begin() as connection:
+        await connection.run_sync(Base.metadata.create_all)
+
+    yield
+
+    # Release database connections when the app shuts down.
+    await engine.dispose()
+
+
+app = FastAPI(title="My First FastAPI", lifespan=lifespan)
 
 # SessionMiddleware must be enabled for request.session to work.
 session_secret = os.getenv("SESSION_SECRET")
@@ -31,6 +48,7 @@ app.include_router(products.router)
 app.include_router(sync_async.router)
 app.include_router(auth.router)
 app.include_router(database_test.router)
+app.include_router(items.router)
 
 
 # Describe the user information returned by our API.
