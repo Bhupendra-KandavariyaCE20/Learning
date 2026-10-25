@@ -6,7 +6,7 @@ from fastapi import Depends, FastAPI, HTTPException, Request
 from pydantic import BaseModel
 from starlette.middleware.sessions import SessionMiddleware
 
-from routers import users, products, sync_async, auth
+from routers import users, products, sync_async, auth, database_test
 
 load_dotenv()
 
@@ -30,6 +30,7 @@ app.include_router(users.router)
 app.include_router(products.router)
 app.include_router(sync_async.router)
 app.include_router(auth.router)
+app.include_router(database_test.router)
 
 
 # Describe the user information returned by our API.
