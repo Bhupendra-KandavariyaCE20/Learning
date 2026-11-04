@@ -42,3 +42,14 @@ plt.xlabel("Values")
 plt.ylabel("Density")
 plt.title("Normal Distribution")
 plt.show()
+
+
+values = np.array([90, 95, 100, 105, 110, 150])
+mean = np.mean(values)
+std = np.std(values)
+
+z_scores = (values - mean) / std
+
+outliers = values[abs(z_scores) > 2]
+print("Z-scores:", z_scores)
+print("Potential outliers:", outliers)
