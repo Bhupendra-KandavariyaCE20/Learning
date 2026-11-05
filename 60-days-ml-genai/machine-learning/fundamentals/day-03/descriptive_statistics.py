@@ -29,3 +29,41 @@ unique_values, count = np.unique(charges, return_counts=True)
 
 mode = unique_values[np.argmax(count)]
 print(f"Mode: {mode}")
+
+
+monthly_charges = np.array(
+    [
+        500,
+        550,
+        600,
+        620,
+        650,
+        680,
+        700,
+        720,
+        750,
+        780,
+        800,
+        820,
+        850,
+        900,
+        950,
+        1000,
+        1050,
+        1100,
+        1200,
+        1500,
+    ]
+)
+
+print(f"25th Percentile: {np.percentile(monthly_charges, 25)}")
+print(f"50th Percentile: {np.percentile(monthly_charges, 50)}")
+print(f"75th Percentile: {np.percentile(monthly_charges, 75)}")
+mean_ = np.mean(monthly_charges)
+std_ = np.std(monthly_charges)
+print(f"Mean: {mean_}")
+print(f"Standard Deviation: {std_}")
+print(f"Variance: {np.var(monthly_charges)}")
+z_scores = (monthly_charges - mean_) / std_
+print(f"Z-scores: {z_scores}")
+print(f"Outliers: {monthly_charges[np.abs(z_scores) > 2]}")
