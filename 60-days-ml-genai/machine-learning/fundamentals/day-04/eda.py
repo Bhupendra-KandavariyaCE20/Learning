@@ -3,6 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.impute import SimpleImputer
+from sklearn.preprocessing import OneHotEncoder
 
 data = [
     {
@@ -186,3 +187,8 @@ imputer = SimpleImputer(strategy="median")
 charges = df[["monthly_charges"]]
 imputed_charges = imputer.fit_transform(charges)
 print(imputed_charges)
+
+
+encoder = OneHotEncoder(handle_unknown="ignore")
+encoded = encoder.fit_transform(df[["contract_type"]])
+print(encoded.toarray())
