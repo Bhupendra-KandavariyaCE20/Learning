@@ -3,7 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.impute import SimpleImputer
-from sklearn.preprocessing import OneHotEncoder
+from sklearn.preprocessing import OneHotEncoder, StandardScaler, MinMaxScaler
 
 data = [
     {
@@ -192,3 +192,11 @@ print(imputed_charges)
 encoder = OneHotEncoder(handle_unknown="ignore")
 encoded = encoder.fit_transform(df[["contract_type"]])
 print(encoded.toarray())
+
+scaler = StandardScaler()
+scaled = scaler.fit_transform(df[["monthly_charges"]])
+print(scaled)
+
+min_max_scaler = MinMaxScaler()
+min_max_scaled = min_max_scaler.fit_transform(df[["monthly_charges"]])
+print(min_max_scaled)
