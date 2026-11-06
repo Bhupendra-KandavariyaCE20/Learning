@@ -2,6 +2,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+from sklearn.impute import SimpleImputer
 
 data = [
     {
@@ -180,3 +181,8 @@ correlation = df[numerical_columns].corr(method="spearman")
 sns.heatmap(correlation, annot=True, cmap="coolwarm", vmin=-1, vmax=1)
 plt.title("Correlation Heatmap")
 plt.show()
+
+imputer = SimpleImputer(strategy="median")
+charges = df[["monthly_charges"]]
+imputed_charges = imputer.fit_transform(charges)
+print(imputed_charges)
