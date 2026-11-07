@@ -46,3 +46,38 @@ new_house = pd.DataFrame({"house_size_sq_ft": [1750]})
 print(f"New House Price {model.predict(new_house)}")
 
 # Visualize predictions
+# Create a plot containing:
+# - Actual observations.
+# - Regression line.
+# - Axis labels.
+# - Chart title.
+from matplotlib import pyplot as plt
+import seaborn as sns
+
+sns.set_style("whitegrid")
+plt.figure(figsize=(10, 6))
+# Plot actual observations
+plt.scatter(X_test, y_test, color="blue", label="Actual Observations")
+# Plot regression line
+plt.plot(X_test, y_predicted, color="red", label="Regression Line")
+# Axis labels and chart title
+plt.xlabel("House Size (sq ft)")
+plt.ylabel("Price (in lakh INR)")
+plt.title("House Price Prediction")
+plt.legend()
+plt.show()
+
+"""
+Compare model predictions
+
+Create a DataFrame containing:
+Actual price	Predicted price	Absolute error
+"""
+comparison_df = pd.DataFrame(
+    {
+        "Actual Price": y_test,
+        "Predicted Price": y_predicted,
+        "Absolute Error": np.abs(y_test - y_predicted),
+    }
+)
+print(comparison_df)
