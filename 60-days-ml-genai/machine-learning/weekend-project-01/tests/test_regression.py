@@ -28,3 +28,37 @@ def test_linear_relationship():
     assert np.isclose(
         (model.weights[0] / (model.scale + 1e-8)), 3, atol=0.1
     )  # Check if the learned weight is close to the expected value
+
+
+# Multiple feature support
+def test_multiple_features():
+    # Create a dataset with multiple features
+    X = np.array([[1, 2], [2, 3], [3, 4], [4, 5], [5, 6]])
+    y = 2 * X[:, 0] + 3 * X[:, 1] + 5
+    model = LinearRegressionScratch(learning_rate=0.01, epochs=1000)
+    model.fit(X, y)
+
+    assert model.weights is not None
+    assert model.bias is not None
+    assert model.loss_history[-1] < 1e-2  # Ensure the loss is low enough
+    prediction = model._predict(np.array([[6, 7]]))
+    assert np.isclose(
+        prediction[0], 2 * 6 + 3 * 7 + 5, atol=0.1
+    )  # Check if prediction is close to the expected value
+    assert len(model.loss_history) == 1000  # Ensure the number of epochs is correct
+
+
+def test_input_validation():
+    model = LinearRegressionScratch()
+    X = np.array([[1], [2], [3]])
+    y = np.array([1, 2])  # Mismatched length
+
+    with pytest.raises(ValueError):
+        model.fit(X, y)
+
+    with pytest.raises(ValueError):
+        model._predict("not an array")
+
+    model.initialize_parameters(1)
+    with pytest.raises(ValueError):
+        model._predict(np.array([[1, 2]]))  # Mismatched feature size
