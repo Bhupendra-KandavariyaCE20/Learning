@@ -2,6 +2,7 @@
 import pytest
 import numpy as np
 from src.regression import LinearRegressionScratch
+from sklearn.linear_model import LinearRegression
 
 
 # check if the LinearRegressionScratch class is defined
@@ -62,3 +63,24 @@ def test_input_validation():
     model.initialize_parameters(1)
     with pytest.raises(ValueError):
         model._predict(np.array([[1, 2]]))  # Mismatched feature size
+
+
+def test_against_sklearn():
+    # Create a simple linear dataset
+    X = np.array([[1], [2], [3], [4], [5], [6], [7], [8]])
+    y = 3 * X[:, 0] + 2
+
+    # Fit sklearn's LinearRegression
+    sklearn_model = LinearRegression()
+    sklearn_model.fit(X, y)
+    sklearn_predictions = sklearn_model.predict(X)
+
+    # Fit our LinearRegressionScratch
+    model = LinearRegressionScratch(learning_rate=0.01, epochs=1000)
+    model.fit(X, y)
+    scratch_predictions = model._predict(X)
+
+    # Compare predictions
+    assert np.allclose(
+        sklearn_predictions, scratch_predictions, atol=1e-1
+    ), "Predictions from LinearRegressionScratch do not match sklearn's LinearRegression."
